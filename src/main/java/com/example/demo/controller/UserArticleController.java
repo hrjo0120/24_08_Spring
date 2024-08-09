@@ -13,8 +13,9 @@ import com.example.demo.vo.Article;
 public class UserArticleController {
 
 	int lastArticleId = 0;
-	static List<Article> articles;
+	List<Article> articles;
 
+	// 생성자
 	public UserArticleController() {
 		articles = new ArrayList<>();
 
@@ -22,6 +23,7 @@ public class UserArticleController {
 		makeTestData();
 	}
 
+	// 서비스 메서드
 	private void makeTestData() {
 		for (int i = 1; i <= 10; i++) {
 			String title = "제목" + i;
@@ -39,6 +41,16 @@ public class UserArticleController {
 		return article;
 	}
 
+	private Article getArticleById(int id) {
+		for (Article article : articles) {
+			if (article.getId() == id) {
+				return article;
+			}
+		}
+		return null;
+	}
+
+	// 액션 메소드
 	@RequestMapping("/usr/article/doAdd")
 	@ResponseBody
 	public Article doAdd(String title, String body) {
@@ -52,6 +64,26 @@ public class UserArticleController {
 	public List<Article> getArticles() {
 
 		return articles;
+	}
+
+	@RequestMapping("/usr/article/doDelete")
+	@ResponseBody
+	public String doDelete(int id) {
+
+		Article article = getArticleById(id);
+
+		if (article == null) {
+			return id + "번 글은 없습니다";
+		}
+
+		// 이렇게 하면 articles의 위치상 삭제되는 것
+		// 원하는 것이 지워지지 않을 수 있음
+		// articles.remove(id - 1);
+
+		articles.remove(article);
+
+		return id + "번 글이 삭제됨";
+
 	}
 
 }
