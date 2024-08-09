@@ -31,7 +31,7 @@ public class UserArticleController {
 	@ResponseBody
 	public List<Article> getArticles() {
 
-		return articleService.articles;
+		return articleService.getArticles();
 	}
 
 	// 게시글 삭제
