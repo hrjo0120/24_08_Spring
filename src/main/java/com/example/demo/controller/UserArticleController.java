@@ -51,6 +51,7 @@ public class UserArticleController {
 	}
 
 	// 액션 메소드
+	// 게시글 추가
 	@RequestMapping("/usr/article/doAdd")
 	@ResponseBody
 	public Article doAdd(String title, String body) {
@@ -59,13 +60,15 @@ public class UserArticleController {
 		return article;
 	}
 
+	// 모든 게시글 보기
 	@RequestMapping("/usr/article/getArticles")
 	@ResponseBody
 	public List<Article> getArticles() {
 
 		return articles;
 	}
-
+	
+	// 게시글 삭제
 	@RequestMapping("/usr/article/doDelete")
 	@ResponseBody
 	public String doDelete(int id) {
@@ -76,14 +79,46 @@ public class UserArticleController {
 			return id + "번 글은 없습니다";
 		}
 
-		// 이렇게 하면 articles의 위치상 삭제되는 것
-		// 원하는 것이 지워지지 않을 수 있음
-		// articles.remove(id - 1);
-
 		articles.remove(article);
 
 		return id + "번 글이 삭제됨";
 
 	}
+
+	// 게시글 수정
+	@RequestMapping("/usr/article/doModify")
+	@ResponseBody
+	public Object doModify(int id, String title, String body) {
+
+		Article article = getArticleById(id);
+
+		if (article == null) {
+			return id + "번 글은 없습니다";
+		}
+
+		article.setTitle(title);
+		article.setBody(body);
+
+		return article;
+//		article을 붙이는 위치에 따라서 실행 여부가 갈림
+//		return article + id + "번 글이 수정되었습니다";		// article을 id 앞에 붙이면 실행되지 않음
+//		return id + "번 글이 수정되었습니다" + article;		// article을 String 뒤에 붙여야 실행됨
+
+	}
+	
+	// 게시글 상세보기
+	@RequestMapping("/usr/article/getArticle")
+	@ResponseBody
+	public Object getArticle(int id) {
+
+		Article article = getArticleById(id);
+
+		if (article == null) {
+			return id + "번 글은 없음";
+		}
+
+		return article;
+	}
+
 
 }
