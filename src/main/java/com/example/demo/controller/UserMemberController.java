@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.demo.service.MemberService;
 import com.example.demo.util.Ut;
 import com.example.demo.vo.Member;
+import com.example.demo.vo.ResultData;
 
 @Controller
 public class UserMemberController {
@@ -17,40 +18,37 @@ public class UserMemberController {
 
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
-	public Object doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNum,
+	public ResultData doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNum,
 			String email) {
 
-		if(Ut.isEmptyOrNull(loginId)) {
-			return "loginId를 입력해주세요";
+		if (Ut.isEmptyOrNull(loginId)) {
+			return ResultData.from("F-1", "loginId를 입력해주세요");
 		}
-		if(Ut.isEmptyOrNull(loginPw)) {
-			return "loginPw를 입력해주세요";
+		if (Ut.isEmptyOrNull(loginPw)) {
+			return ResultData.from("F-2", "loginPw를 입력해주세요");
 		}
-		if(Ut.isEmptyOrNull(name)) {
-			return "name를 입력해주세요";
+		if (Ut.isEmptyOrNull(name)) {
+			return ResultData.from("F-3", "name를 입력해주세요");
 		}
-		if(Ut.isEmptyOrNull(nickname)) {
-			return "nickname를 입력해주세요";
+		if (Ut.isEmptyOrNull(nickname)) {
+			return ResultData.from("F-4", "nickname를 입력해주세요");
 		}
-		if(Ut.isEmptyOrNull(cellphoneNum)) {
-			return "cellphoneNum를 입력해주세요";
+		if (Ut.isEmptyOrNull(cellphoneNum)) {
+			return ResultData.from("F-5", "cellphoneNum를 입력해주세요");
 		}
-		if(Ut.isEmptyOrNull(email)) {
-			return "email를 입력해주세요";
+		if (Ut.isEmptyOrNull(email)) {
+			return ResultData.from("F-6", "email를 입력해주세요");
 		}
-		
-		int id = memberService.doJoin(loginId, loginPw, name, nickname, cellphoneNum, email);
-		
-		if (id == -1) {
-			return Ut.f("이미 사용중인 아이디(%s) 입니다." , loginId);
+
+		ResultData doJoinRd = memberService.doJoin(loginId, loginPw, name, nickname, cellphoneNum, email);
+
+		if (doJoinRd.isFail()) {
+			return doJoinRd;
 		}
-		
-		if (id == -2) {
-			return Ut.f("이미 사용중인 이름(%s)과 이메일(%s) 입니다.", name, email);
-		}
-		
-		Member member = memberService.getMemberById(id);
-		return member;
+
+		Member member = memberService.getMemberById((int) doJoinRd.getData1());
+
+		return ResultData.newData(doJoinRd, member);
 	}
 
 }
