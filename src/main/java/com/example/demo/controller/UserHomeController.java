@@ -1,22 +1,23 @@
 package com.example.demo.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Controller
 public class UserHomeController {
+	@RequestMapping("/usr/home/main")
+	public String showMain() {
+		return "/usr/home/main";
+	}
+	
+	//ResponseBody가 없어야함. 있고 없고 차이가 있음
+	@RequestMapping("/")
+	public String showRoot() {
+		return "redirect:/usr/home/main";
+	}
 	
 }
+
 //	private int count;
 //	int num;
 //	
