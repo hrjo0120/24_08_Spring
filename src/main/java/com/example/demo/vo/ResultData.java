@@ -9,19 +9,23 @@ public class ResultData<DT> {
 	@Getter
 	private String msg;
 	@Getter
-	private DT data1;
+	private DT data1;	//DT: 제네릭으로 나중에 정할래
+	@Getter
+	private String data1Name;
 
 	public static <DT> ResultData<DT> from(String ResultCode, String msg) {
-		return from(ResultCode, msg, null);
+		return from(ResultCode, msg, null, null);
 
 	}
 
 	// from 이라는 메소드가 실행됐을 때, 어떻게 성공(실패)를 판별하는지
-	public static <DT> ResultData<DT> from(String ResultCode, String msg, DT data1) {
+	public static <DT> ResultData<DT> from(String ResultCode, String msg, String data1Name, DT data1) {
 		ResultData<DT> rd = new ResultData<DT>();
 		rd.ResultCode = ResultCode;
 		rd.msg = msg;
 		rd.data1 = data1;
+		rd.data1Name = data1Name;
+		
 
 		return rd;
 	}
@@ -35,7 +39,7 @@ public class ResultData<DT> {
 		return isSuccess() == false;
 	}
 
-	public static <DT> ResultData<DT> newData(ResultData rd, DT newData) {
-		return from(rd.getResultCode(), rd.getMsg(), newData);
+	public static <DT> ResultData<DT> newData(ResultData rd, String data1Name, DT newData) {
+		return from(rd.getResultCode(), rd.getMsg(), data1Name, newData);
 	}
 }

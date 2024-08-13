@@ -51,7 +51,7 @@ public class UserArticleController {
 
 		Article article = articleService.getArticleById(id);
 
-		return ResultData.newData(writeArticleRd, article);
+		return ResultData.newData(writeArticleRd, "생성된 게시글", article);
 
 	}
 
@@ -60,7 +60,7 @@ public class UserArticleController {
 	@ResponseBody
 	public ResultData<List<Article>> getArticles() {
 		List<Article> articles = articleService.getArticles();
-		return ResultData.from("S-1", "Article List", articles);
+		return ResultData.from("S-1", "Article List", "게시글 목록", articles);
 	}
 
 	// 게시글 삭제
@@ -82,7 +82,7 @@ public class UserArticleController {
 
 		Article article = articleService.getArticleById(id);
 		if (article == null) {
-			return ResultData.from("F-1", Ut.f("%d번 게시글은 없습니다", id), id);
+			return ResultData.from("F-1", Ut.f("%d번 게시글은 없습니다", id), "입력한 id", id);
 		}
 
 		if (article.getMemberId() != loginedMemberId) {
@@ -90,7 +90,7 @@ public class UserArticleController {
 		}
 
 		articleService.deleteArticle(id);
-		return ResultData.from("S-1", Ut.f("%d번 게시글을 삭제했습니다", id), id);
+		return ResultData.from("S-1", Ut.f("%d번 게시글을 삭제했습니다", id), "입력한 id", id);
 	}
 
 	// 게시글 수정
@@ -125,7 +125,7 @@ public class UserArticleController {
 		articleService.modifyArticle(id, title, body);
 		article = articleService.getArticleById(id);
 
-		return ResultData.from(loginedMemberCanModifyRd.getResultCode(), loginedMemberCanModifyRd.getMsg(), article);
+		return ResultData.from(loginedMemberCanModifyRd.getResultCode(), loginedMemberCanModifyRd.getMsg(), "수정된 게시글", article);
 	}
 
 	// 게시글 상세보기
@@ -139,7 +139,7 @@ public class UserArticleController {
 			return ResultData.from("F-1", Ut.f("%d번 게시글은 없습니다.", id));
 		}
 
-		return ResultData.from("S-1", Ut.f("%d번 게시글 입니다", id), article);
+		return ResultData.from("S-1", Ut.f("%d번 게시글 입니다", id), "게시글 1개", article);
 
 	}
 
