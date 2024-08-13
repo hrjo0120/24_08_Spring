@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -56,11 +57,14 @@ public class UserArticleController {
 	}
 
 	// 모든 게시글 보기
-	@RequestMapping("/usr/article/getArticles")
-	@ResponseBody
-	public ResultData<List<Article>> getArticles() {
+	@RequestMapping("/usr/article/list")
+	public String showList(Model model) {
+
 		List<Article> articles = articleService.getArticles();
-		return ResultData.from("S-1", "Article List", "게시글 목록", articles);
+
+		model.addAttribute("articles", articles);
+
+		return "usr/article/list";
 	}
 
 	// 게시글 삭제
@@ -125,7 +129,8 @@ public class UserArticleController {
 		articleService.modifyArticle(id, title, body);
 		article = articleService.getArticleById(id);
 
-		return ResultData.from(loginedMemberCanModifyRd.getResultCode(), loginedMemberCanModifyRd.getMsg(), "수정된 게시글", article);
+		return ResultData.from(loginedMemberCanModifyRd.getResultCode(), loginedMemberCanModifyRd.getMsg(), "수정된 게시글",
+				article);
 	}
 
 	// 게시글 상세보기
