@@ -89,12 +89,17 @@ public class UserArticleController {
 			return ResultData.from("F-1", Ut.f("%d번 게시글은 없습니다", id), "입력한 id", id);
 		}
 
-		if (article.getMemberId() != loginedMemberId) {
-			return ResultData.from("F-2", Ut.f("%d번 게시글에 대한 권한이 없습니다", id));
+		ResultData userCanDeleteRd = articleService.userCanDelete(loginedMemberId, article);
+
+		if (userCanDeleteRd.isFail()) {
+			return userCanDeleteRd;
 		}
 
-		articleService.deleteArticle(id);
-		return ResultData.from("S-1", Ut.f("%d번 게시글을 삭제했습니다", id), "입력한 id", id);
+		if (userCanDeleteRd.isSuccess()) {
+			articleService.deleteArticle(id);
+		}
+		
+		return ResultData.from(userCanDeleteRd.getResultCode(), userCanDeleteRd.getMsg(), "입력한 id", id);
 	}
 
 	// 게시글 수정
@@ -120,16 +125,16 @@ public class UserArticleController {
 			return ResultData.from("F-1", Ut.f("%d번 게시글은 없습니다", id));
 		}
 
-		ResultData userCanModify = articleService.userCanModify(loginedMemberId, article);
+		ResultData userCanModifyRd = articleService.userCanModify(loginedMemberId, article);
 
-		if (userCanModify.isFail()) {
-			return userCanModify;
+		if (userCanModifyRd.isFail()) {
+			return userCanModifyRd;
 		}
 
 		articleService.modifyArticle(id, title, body);
 		article = articleService.getArticleById(id);
 
-		return ResultData.from(userCanModify.getResultCode(), userCanModify.getMsg(), "수정된 게시글",
+		return ResultData.from(userCanModifyRd.getResultCode(), userCanModifyRd.getMsg(), "수정된 게시글",
 				article);
 	}
 
