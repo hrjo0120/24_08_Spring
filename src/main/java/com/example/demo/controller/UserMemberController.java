@@ -20,9 +20,9 @@ public class UserMemberController {
 
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
-	public ResultData<Member> doJoin(HttpSession httpSession, String loginId, String loginPw, String name, String nickname, String cellphoneNum,
-			String email) {
-		
+	public ResultData<Member> doJoin(HttpSession httpSession, String loginId, String loginPw, String name,
+			String nickname, String cellphoneNum, String email) {
+
 		boolean isLogined = false;
 
 		if (httpSession.getAttribute("loginedMemberId") != null) {
@@ -60,12 +60,17 @@ public class UserMemberController {
 
 		Member member = memberService.getMemberById((int) doJoinRd.getData1());
 
-		return ResultData.newData(doJoinRd, "새로 생성된 member",member);
+		return ResultData.newData(doJoinRd, "새로 생성된 member", member);
+	}
+
+	@RequestMapping("/usr/member/login")
+	public String showLogin() {
+		return "/usr/member/login";
 	}
 
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
-	public ResultData doLogin(HttpSession httpSession, String loginId, String loginPw) {
+	public String doLogin(HttpSession httpSession, String loginId, String loginPw) {
 
 		boolean isLogined = false;
 
@@ -74,29 +79,29 @@ public class UserMemberController {
 		}
 
 		if (isLogined) {
-			return ResultData.from("F-A", "이미 로그인 되었습니다");
+			return Ut.jsHistoryBack("F-A", "이미 로그인 되었습니다");
 		}
 
 		if (Ut.isEmptyOrNull(loginId)) {
-			return ResultData.from("F-1", "loginId를 입력해주세요");
+			return Ut.jsHistoryBack("F-1", "loginId를 입력해주세요");
 		}
 		if (Ut.isEmptyOrNull(loginPw)) {
-			return ResultData.from("F-2", "loginPw를 입력해주세요");
+			return Ut.jsHistoryBack("F-2", "loginPw를 입력해주세요");
 		}
 
 		Member member = memberService.getMemberByLoginId(loginId);
 
 		if (member == null) {
-			return ResultData.from("F-3", Ut.f("%s는(은) 존재X", loginId));
+			return Ut.jsHistoryBack("F-3", Ut.f("%s는(은) 존재X", loginId));
 		}
 
 		if (member.getLoginPw().equals(loginPw) == false) {
-			return ResultData.from("F-4", Ut.f("비밀번호 틀림"));
+			return Ut.jsHistoryBack("F-4", Ut.f("비밀번호 틀림"));
 		}
 
 		httpSession.setAttribute("loginedMemberId", member.getId());
 
-		return ResultData.from("S-1", Ut.f("%s님 환영합니다", member.getNickname()),"로그인 한 회원", member);
+		return Ut.jsReplace("S-1", Ut.f("%s님 환영합니다", member.getNickname()), "/");
 
 	}
 
