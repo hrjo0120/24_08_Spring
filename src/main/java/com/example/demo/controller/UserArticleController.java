@@ -70,7 +70,7 @@ public class UserArticleController {
 	// 게시글 삭제
 	@RequestMapping("/usr/article/doDelete")
 	@ResponseBody
-	public ResultData<Integer> doDelete(HttpSession httpSession, int id) {
+	public String doDelete(HttpSession httpSession, int id) {
 
 		boolean isLogined = false;
 		int loginedMemberId = 0;
@@ -81,25 +81,27 @@ public class UserArticleController {
 		}
 
 		if (isLogined == false) {
-			return ResultData.from("F-A", "로그인 후에 이용해주세요");
+//			return ResultData.from("F-A", "로그인 후에 이용해주세요");
+			return Ut.jsReplace("F-A", "로그인 후 이용하세요", "../member/login");
 		}
 
 		Article article = articleService.getArticleById(id);
 		if (article == null) {
-			return ResultData.from("F-1", Ut.f("%d번 게시글은 없습니다", id), "입력한 id", id);
+//			return ResultData.from("F-1", Ut.f("%d번 게시글은 없습니다", id), "입력한 id", id);
+			return Ut.jsHistoryBack("F-1", Ut.f("%d번 게시글은 없습니다", id));
 		}
 
 		ResultData userCanDeleteRd = articleService.userCanDelete(loginedMemberId, article);
 
 		if (userCanDeleteRd.isFail()) {
-			return userCanDeleteRd;
+			return Ut.jsHistoryBack(userCanDeleteRd.getResultCode(), userCanDeleteRd.getMsg());
 		}
 
 		if (userCanDeleteRd.isSuccess()) {
 			articleService.deleteArticle(id);
 		}
 		
-		return ResultData.from(userCanDeleteRd.getResultCode(), userCanDeleteRd.getMsg(), "입력한 id", id);
+		return Ut.jsReplace(userCanDeleteRd.getResultCode(), userCanDeleteRd.getMsg(), "../article/list");
 	}
 
 	// 게시글 수정
