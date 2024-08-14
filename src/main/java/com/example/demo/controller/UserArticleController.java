@@ -134,19 +134,20 @@ public class UserArticleController {
 	}
 
 	// 게시글 상세보기
-//	@RequestMapping("/usr/article/getArticle")
-//	@ResponseBody
-//	public ResultData<Article> getArticle(int id) {
-//
-//		Article article = articleService.getArticleById(id);
+	@RequestMapping("/usr/article/detail")
+	public String showDetail(Model model, int id) {
+
+		Article article = articleService.getArticleById(id);
 //
 //		if (article == null) {
 //			return ResultData.from("F-1", Ut.f("%d번 게시글은 없습니다.", id));
 //		}
-//
-//		return ResultData.from("S-1", Ut.f("%d번 게시글 입니다", id), "게시글 1개", article);
-//
-//	}
+
+		model.addAttribute("article", article);
+		
+		return "usr/article/detail";
+		
+	}
 	
 	@RequestMapping("/usr/article/getArticle")
 	public String getArticle(int id) {
