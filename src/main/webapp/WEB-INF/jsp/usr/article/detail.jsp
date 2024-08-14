@@ -18,16 +18,18 @@
 				</tr>
 				<tr>
 					<th style="text-align: center;">Title</th>
-					<td style="text-align: center;"><a class="hover:underline" href="detail?id=${article.id}">${article.title}</a></td>
+					<td style="text-align: center;">${article.title}</td>
 				</tr>
 				<tr>
-					<th style="text-align: center;">Member ID</th>
-					<td style="text-align: center;">${article.memberId}</td>
+					<th style="text-align: center;">Writer</th>
+					<td style="text-align: center;">${article.extra__writer}</td>
 				</tr>
 			</tbody>
 		</table>
 		<div class="btns">
 			<button type="button" onclick="history.back()">뒤로가기</button>
+			<a href="../article/modify?id=${article.id }">수정</a>
+			<a href="../article/doDelete?id=${article.id }">삭제</a>
 		</div>
 	</div>
 </section>
