@@ -109,6 +109,7 @@ public class UserArticleController {
 		return ResultData.from(userCanModifyRd.getResultCode(), userCanModifyRd.getMsg(), "수정된 게시글",
 				article);
 	}
+	
 
 	// 게시글 상세보기
 	@RequestMapping("/usr/article/detail")
