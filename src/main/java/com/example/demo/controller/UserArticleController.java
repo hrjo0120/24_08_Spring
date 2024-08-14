@@ -120,24 +120,32 @@ public class UserArticleController {
 			return ResultData.from("F-1", Ut.f("%d번 게시글은 없습니다", id));
 		}
 
-		ResultData loginedMemberCanModifyRd = articleService.loginedMemberCanModify(loginedMemberId, article);
+		ResultData userCanModify = articleService.userCanModify(loginedMemberId, article);
 
-		if (loginedMemberCanModifyRd.isFail()) {
-			return loginedMemberCanModifyRd;
+		if (userCanModify.isFail()) {
+			return userCanModify;
 		}
 
 		articleService.modifyArticle(id, title, body);
 		article = articleService.getArticleById(id);
 
-		return ResultData.from(loginedMemberCanModifyRd.getResultCode(), loginedMemberCanModifyRd.getMsg(), "수정된 게시글",
+		return ResultData.from(userCanModify.getResultCode(), userCanModify.getMsg(), "수정된 게시글",
 				article);
 	}
 
 	// 게시글 상세보기
 	@RequestMapping("/usr/article/detail")
-	public String showDetail(Model model, int id) {
+	public String showDetail(HttpSession httpSession, Model model, int id) {
 
-		Article article = articleService.getArticleById(id);
+		boolean isLogined = false;
+		int loginedMemberId = 0;
+
+		if (httpSession.getAttribute("loginedMemberId") != null) {
+			isLogined = true;
+			loginedMemberId = (int) httpSession.getAttribute("loginedMemberId");
+		}
+		
+		Article article = articleService.getForPrintArticle(loginedMemberId, id);
 //
 //		if (article == null) {
 //			return ResultData.from("F-1", Ut.f("%d번 게시글은 없습니다.", id));
@@ -154,7 +162,6 @@ public class UserArticleController {
 
 		Article article = articleService.getArticleById(id);
 
-//		return ResultData.from("S-1", Ut.f("%d번 게시글 입니다", id), "게시글 1개", article);
 		return "usr/article/detail";
 	}
 
