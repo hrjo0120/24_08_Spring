@@ -6,4 +6,4 @@
 
 	
 
-<%@ include file="../common/foot.jspf"%>
+<%@ include file="../common/foot.jspf"%> 
