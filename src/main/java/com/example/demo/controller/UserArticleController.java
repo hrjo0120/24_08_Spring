@@ -44,6 +44,8 @@ public class UserArticleController {
 	public String doWrite(HttpServletRequest req, String title, String body, String boardId) {
 
 		Rq rq = (Rq) req.getAttribute("rq");
+		
+		articleService.increaseHitCount(id);
 
 		if (Ut.isEmptyOrNull(title)) {
 			return Ut.jsHistoryBack("F-1", "제목을 입력해주세요");
