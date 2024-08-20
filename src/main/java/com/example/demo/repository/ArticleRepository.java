@@ -39,7 +39,7 @@ public interface ArticleRepository {
 //	@Select("SELECT * FROM article WHERE id = #{id}")
 	public Article getArticleById(int id);
 
-//	@Select("SELECT * FROM article ORDER BY id DESC")
+	@Select("SELECT * FROM article ORDER BY id DESC")
 	public List<Article> getArticles();
 
 	@Select("SELECT LAST_INSERT_ID();")
