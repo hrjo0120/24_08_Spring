@@ -17,13 +17,22 @@
 					<td style="text-align: center;">${article.regDate.substring(0,10)}</td>
 				</tr>
 				<tr>
-					<th style="text-align: center;">Title</th>
-					<td style="text-align: center;">${article.title}</td>
+					<th style="text-align: center;">Modified date</th>
+					<td style="text-align: center;">${article.updateDate}</td>
 				</tr>
 				<tr>
 					<th style="text-align: center;">Writer</th>
 					<td style="text-align: center;">${article.extra__writer}</td>
 				</tr>
+				<tr>
+					<th style="text-align: center;">Title</th>
+					<td style="text-align: center;">${article.title}</td>
+				</tr>
+				<tr>
+					<th style="text-align: center;">Body</th>
+					<td style="text-align: center;">${article.body}</td>
+				</tr>
+				
 			</tbody>
 		</table>
 		<div class="btns">
