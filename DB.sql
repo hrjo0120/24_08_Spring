@@ -112,13 +112,13 @@ CREATE TABLE board (
 INSERT INTO board
 SET regDate = NOW(),
 updateDate = NOW(),
-`code` = 'notice',
+`code` = 'NOTICE',
 `name` = '공지사항';
 
 INSERT INTO board
 SET regDate = NOW(),
 updateDate = NOW(),
-`code` = 'free',
+`code` = 'FREE',
 `name` = '자유';
 
 INSERT INTO board
@@ -155,7 +155,12 @@ FROM board;
 SELECT *
 FROM `member`;
 
+
 ###############################################################################
+
+SELECT *
+			FROM board
+			WHERE id = 3
 
 ## 게시글 테스트 데이터 대량 생성
 INSERT INTO article
