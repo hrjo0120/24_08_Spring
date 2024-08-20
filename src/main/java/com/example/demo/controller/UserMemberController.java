@@ -19,43 +19,49 @@ public class UserMemberController {
 
 	@Autowired
 	private Rq rq;
-	
+
 	@Autowired
 	private MemberService memberService;
 
+	@RequestMapping("/usr/member/join")
+	public String showJoin(HttpServletRequest req) {
+
+		return "/usr/member/join";
+	}
+
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
-	public ResultData<Member> doJoin(HttpServletRequest req, String loginId, String loginPw, String name,
-			String nickname, String cellphoneNum, String email) {
+	public String doJoin(HttpServletRequest req, String loginId, String loginPw, String name, String nickname,
+			String cellphoneNum, String email) {
 
 		if (Ut.isEmptyOrNull(loginId)) {
-			return ResultData.from("F-1", "loginId를 입력해주세요");
+			return Ut.jsHistoryBack("F-1", "loginId를 입력해주세요");
 		}
 		if (Ut.isEmptyOrNull(loginPw)) {
-			return ResultData.from("F-2", "loginPw를 입력해주세요");
+			return Ut.jsHistoryBack("F-2", "loginPw를 입력해주세요");
 		}
 		if (Ut.isEmptyOrNull(name)) {
-			return ResultData.from("F-3", "name를 입력해주세요");
+			return Ut.jsHistoryBack("F-3", "name를 입력해주세요");
 		}
 		if (Ut.isEmptyOrNull(nickname)) {
-			return ResultData.from("F-4", "nickname를 입력해주세요");
+			return Ut.jsHistoryBack("F-4", "nickname를 입력해주세요");
 		}
 		if (Ut.isEmptyOrNull(cellphoneNum)) {
-			return ResultData.from("F-5", "cellphoneNum를 입력해주세요");
+			return Ut.jsHistoryBack("F-5", "cellphoneNum를 입력해주세요");
 		}
 		if (Ut.isEmptyOrNull(email)) {
-			return ResultData.from("F-6", "email를 입력해주세요");
+			return Ut.jsHistoryBack("F-6", "email를 입력해주세요");
 		}
 
-		ResultData doJoinRd = memberService.doJoin(loginId, loginPw, name, nickname, cellphoneNum, email);
+		ResultData joinRd = memberService.join(loginId, loginPw, name, nickname, cellphoneNum, email);
 
-		if (doJoinRd.isFail()) {
-			return doJoinRd;
+		if (joinRd.isFail()) {
+			return Ut.jsHistoryBack(joinRd.getResultCode(), joinRd.getMsg());
 		}
 
-		Member member = memberService.getMemberById((int) doJoinRd.getData1());
+		Member member = memberService.getMemberById((int) joinRd.getData1());
 
-		return ResultData.newData(doJoinRd, "새로 생성된 member", member);
+		return Ut.jsReplace(joinRd.getResultCode(), joinRd.getMsg(), "../member/login");
 	}
 
 	@RequestMapping("/usr/member/login")
