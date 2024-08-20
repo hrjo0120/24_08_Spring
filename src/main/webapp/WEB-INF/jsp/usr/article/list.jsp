@@ -6,7 +6,7 @@
 
 <section class="mt-24 text-xl px-4">
 	<div class="mx-auto">
-		<div>${articlesCount } 개</div>
+		<div>${articlesCount }개</div>
 		<table class="table" border="1" cellspacing="0" cellpadding="5" style="width: 100%; border-collapse: collapse;">
 			<thead>
 				<tr>
@@ -33,6 +33,14 @@
 				</c:if>
 			</tbody>
 		</table>
+	</div>
+	<div class="pagination flex justify-center mt-3">
+		<div class="btn-group">
+
+			<c:forEach begin="1" end="${pagesCount }" var="i">
+				<a class="btn btn-sm ${param.page == i ? 'btn-active':''}" href="?page=${i }">${i }</a>
+			</c:forEach>
+		</div>
 	</div>
 </section>
 
