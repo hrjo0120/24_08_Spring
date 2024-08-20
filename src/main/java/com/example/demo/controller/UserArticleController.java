@@ -21,6 +21,9 @@ import jakarta.servlet.http.HttpSession;
 public class UserArticleController {
 
 	@Autowired
+	private Rq rq;
+	
+	@Autowired
 	private ArticleService articleService;
 
 	// 게시글 추가

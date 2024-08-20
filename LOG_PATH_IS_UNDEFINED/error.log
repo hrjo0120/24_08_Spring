@@ -1964,3 +1964,17 @@ Action:
 
 Consider defining a bean of type 'com.example.demo.interceptor.NeedLogoutInterceptor' in your configuration.
 
+2024-08-20 09:20:20 [ERROR] o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
