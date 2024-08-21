@@ -1,6 +1,7 @@
 package com.example.demo.vo;
 
 import lombok.Getter;
+import lombok.Setter;
 
 //@Data
 public class ResultData<DT> {
@@ -12,6 +13,10 @@ public class ResultData<DT> {
 	private DT data1;	//DT: 제네릭으로 나중에 정할래
 	@Getter
 	private String data1Name;
+	@Getter
+	private Object data2;
+	@Getter
+	private String data2Name;
 
 	public static <DT> ResultData<DT> from(String ResultCode, String msg) {
 		return from(ResultCode, msg, null, null);
@@ -41,5 +46,10 @@ public class ResultData<DT> {
 
 	public static <DT> ResultData<DT> newData(ResultData rd, String data1Name, DT newData) {
 		return from(rd.getResultCode(), rd.getMsg(), data1Name, newData);
+	}
+	
+	public void setData2(String data2Name, Object data2) {
+		this.data2 = data2;
+		this.data2Name = data2Name;
 	}
 }
