@@ -45,8 +45,6 @@ public class UserArticleController {
 
 		Rq rq = (Rq) req.getAttribute("rq");
 		
-		articleService.increaseHitCount(id);
-
 		if (Ut.isEmptyOrNull(title)) {
 			return Ut.jsHistoryBack("F-1", "제목을 입력해주세요");
 		}
@@ -180,6 +178,12 @@ public class UserArticleController {
 	public String showDetail(HttpServletRequest req, Model model, int id) {
 
 		Rq rq = (Rq) req.getAttribute("rq");
+		
+		ResultData increaseHitCountRd = articleService.increaseHitCount(id);
+		
+		if (increaseHitCountRd.isFail()) {
+			return rq.historyBackOnView(increaseHitCountRd.getMsg());
+		}
 
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
