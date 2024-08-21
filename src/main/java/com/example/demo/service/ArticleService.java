@@ -106,5 +106,9 @@ public class ArticleService {
 		return ResultData.from("S-1", "해당 게시글 조회수 증가", "id", id);
 
 	}
+	
+	public Object getArticleHitCount(int id) {
+		return articleRepository.getArticleHitCount(id);
+	}
 
 }

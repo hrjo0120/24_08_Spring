@@ -135,6 +135,13 @@ public interface ArticleRepository {
 			""")
 	public int getArticleCount(int boardId, String searchKeywordTypeCode, String searchKeyword);
 
+	@Select("""
+			SELECT hitCount
+			FROM article
+			WHERE id = #{id}
+				""")
+	public int getArticleHitCount(int id);
+	
 	@Update("""
 			UPDATE article
 			SET hitCount = hitCount + 1
