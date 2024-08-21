@@ -12,6 +12,13 @@
 
 <script>
 	function ArticleDetail__doIncreaseHitCount() {
+		// 로컬스토리지에 이미 본 게시글의 정보를 남김
+		const localStorageKey = 'article__' + params.id + '__alreadyOnView';
+		if (localStorage.getItem(localStorageKey)) {
+			return;
+		}
+		localStorage.setItem(localStorageKey, true);
+		
 		$.get('../article/doIncreaseHitCountRd', {
 			id : params.id,
 			ajaxMode : 'Y'
