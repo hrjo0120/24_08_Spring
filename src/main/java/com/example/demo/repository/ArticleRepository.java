@@ -61,11 +61,18 @@ public interface ArticleRepository {
 	public Article getArticleById(int id);
 
 	@Select("""
-			<script>
-				SELECT A.* , M.nickname AS extra__writer
+			// 이 부분에서 스크립트 태그를 쓴 이유? mybatis 문법 사용하려고, 
+			// 스크립트 태그 내에선 꺽쇠가 닫는 태그로 인식하기 때문에 html 특수문자 표기법을 이용하여 표기해주어야함(> : &gt  / < : &lt)
+			<script>	
+				SELECT A.*, M.nickname AS extra__writer,
+				IFNULL(SUM(RP.point),0) AS extra__sumReactionPoint,
+				IFNULL(SUM(IF(RP.point &gt; 0,RP.point,0)),0) AS extra__goodReactionPoint,
+				IFNULL(SUM(IF(RP.point &lt; 0,RP.point,0)),0) AS extra__badReactionPoint
 				FROM article AS A
 				INNER JOIN `member` AS M
 				ON A.memberId = M.id
+				LEFT JOIN reactionPoint AS RP
+				ON A.id = RP.relId AND RP.relTypeCode = 'article'
 				WHERE 1
 				<if test="boardId != 0">
 					AND boardId = #{boardId}
@@ -87,6 +94,7 @@ public interface ArticleRepository {
 						</otherwise>
 					</choose>
 				</if>
+				GROUP BY A.id
 				ORDER BY A.id DESC
 				<if test="limitFrom >= 0">
 					LIMIT #{limitFrom}, #{limitTake}

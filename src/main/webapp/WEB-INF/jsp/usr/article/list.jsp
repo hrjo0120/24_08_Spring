@@ -43,6 +43,9 @@
 					<th style="text-align: center;">Registration Date</th>
 					<th style="text-align: center;">Title</th>
 					<th style="text-align: center;">Writer</th>
+					<th style="text-align: center;">sumRP</th>
+					<th style="text-align: center;">goodRP</th>
+					<th style="text-align: center;">badRP</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -52,6 +55,9 @@
 						<td style="text-align: center;">${article.regDate.substring(0,10)}</td>
 						<td style="text-align: center;"><a href="detail?id=${article.id}">${article.title}</a></td>
 						<td style="text-align: center;">${article.extra__writer}</td>
+						<td style="text-align: center;">${article.extra__sumReactionPoint}</td>
+						<td style="text-align: center;">${article.extra__goodReactionPoint}</td>
+						<td style="text-align: center;">${article.extra__badReactionPoint}</td>
 					</tr>
 				</c:forEach>
 
