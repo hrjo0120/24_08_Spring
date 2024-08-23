@@ -37,11 +37,13 @@ SET regDate = NOW(),
 updateDate = NOW(),
 title = '제목1',
 `body` = '내용1';
+
 INSERT INTO article
 SET regDate = NOW(),
 updateDate = NOW(),
 title = '제목2',
 `body` = '내용2';
+
 INSERT INTO article
 SET regDate = NOW(),
 updateDate = NOW(),
@@ -67,6 +69,7 @@ loginPw = 'admin',
 nickname = '관리자',
 cellphoneNum = '01012341234',
 email = 'abc@gmail.com';
+
 ## (일반)
 INSERT INTO `member`
 SET regDate = NOW(),
@@ -77,6 +80,7 @@ loginPw = 'test1',
 nickname = '회원1_닉네임',
 cellphoneNum = '01043214321',
 email = 'abcd@gmail.com';
+
 ## (일반)
 INSERT INTO `member`
 SET regDate = NOW(),
@@ -87,7 +91,9 @@ loginPw = 'test2',
 nickname = '회원2_닉네임',
 cellphoneNum = '01056785678',
 email = 'abcde@gmail.com';
+
 ALTER TABLE article ADD COLUMN memberId INT(10) UNSIGNED NOT NULL AFTER updateDate;
+
 UPDATE article
 SET memberId = 2
 WHERE id IN (1,2);
@@ -143,6 +149,65 @@ WHERE id = 4;
 
 ALTER TABLE article ADD COLUMN hitCount INT(10) UNSIGNED NOT NULL DEFAULT 0 AFTER `body`;
 
+
+
+# reactionPoint 테이블 생성
+CREATE TABLE reactionPoint(
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    memberId INT(10) UNSIGNED NOT NULL,
+    relTypeCode CHAR(50) NOT NULL COMMENT '관련 데이터 타입 코드',
+    relId INT(10) NOT NULL COMMENT '관련 데이터 번호',
+    `point` INT(10) NOT NULL
+);
+
+# reactionPoint 테스트 데이터 생성
+# 1번 회원이 1번 글에 싫어요
+INSERT INTO reactionPoint
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 1,
+relTypeCode = 'article',
+relId = 1,
+`point` = -1;
+
+# 1번 회원이 2번 글에 좋아요
+INSERT INTO reactionPoint
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 1,
+relTypeCode = 'article',
+relId = 2,
+`point` = 1;
+
+# 2번 회원이 1번 글에 싫어요
+INSERT INTO reactionPoint
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 2,
+relTypeCode = 'article',
+relId = 1,
+`point` = -1;
+
+# 2번 회원이 2번 글에 싫어요
+INSERT INTO reactionPoint
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 2,
+relTypeCode = 'article',
+relId = 2,
+`point` = -1;
+
+# 3번 회원이 1번 글에 좋아요
+INSERT INTO reactionPoint
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 3,
+relTypeCode = 'article',
+relId = 1,
+`point` = 1;
+
 ###(INIT 끝)
 ##########################################
 SELECT *
@@ -150,13 +215,12 @@ FROM article
 ORDER BY id DESC;
 
 
-SELECT *
-FROM board;
+SELECT * FROM board;
 
 
-SELECT *
-FROM `member`;
+SELECT * FROM `member`;
 
+SELECT * FROM `reactionPoint`;
 
 ###############################################################################
 
