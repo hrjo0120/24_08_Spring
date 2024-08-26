@@ -186,8 +186,8 @@ public class UserArticleController {
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
 		// -1 싫어요 , 0 표현 x, 1 좋아요
-				int userCanReaction = reactionPointService.userCanReaction(rq.getLoginedMemberId(), "article", id);
-				System.err.println(userCanReaction);
+		int userCanReaction = reactionPointService.userCanReaction(rq.getLoginedMemberId(), "article", id);
+		System.err.println(userCanReaction);
 				
 		model.addAttribute("article", article);
 		model.addAttribute("userCanReaction", userCanReaction);

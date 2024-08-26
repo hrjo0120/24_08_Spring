@@ -84,6 +84,7 @@ public interface ArticleRepository {
 						</otherwise>
 					</choose>
 				</if>
+				GROUP BY A.id
 				ORDER BY A.id DESC
 				<if test="limitFrom >= 0">
 					LIMIT #{limitFrom}, #{limitTake}
