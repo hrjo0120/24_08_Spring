@@ -59,7 +59,7 @@
 					<td style="text-align: center;">${article.extra__writer}</td>
 				</tr>
 				<tr>
-					<th style="text-align: center;">Like</th>
+					<th class="reaction" style="text-align: center;">Like</th>
 					<td style="text-align: center;">${article.goodReactionPoint}</td>
 				</tr>
 				<tr>
@@ -67,7 +67,7 @@
 					<td style="text-align: center;">${article.badReactionPoint}</td>
 				</tr>
 				<tr>
-					<th style="text-align: center;">LIKE / Dislike</th>
+					<th style="text-align: center;">LIKE / Dislike / ${usersReaction }</th>
 					<td style="text-align: center;">
 						<a href="/usr/reactionPoint/doGoodReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.currentUri}"
 							class="btn btn-outline btn-success">👍 LIKE ${article.goodReactionPoint}</a>

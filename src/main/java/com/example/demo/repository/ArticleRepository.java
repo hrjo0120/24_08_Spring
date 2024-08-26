@@ -147,6 +147,13 @@ public interface ArticleRepository {
 	
 	@Update("""
 			UPDATE article
+			SET goodReactionPoint = goodReactionPoint + 1
+			WHERE id = #{relId}
+			""")
+	public int increaseGoodReactionPoint(int relId);
+	
+	@Update("""
+			UPDATE article
 			SET hitCount = hitCount + 1
 			WHERE id = #{id}
 			""")
