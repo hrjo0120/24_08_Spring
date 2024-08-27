@@ -150,5 +150,13 @@ public class ArticleService {
 	public Object getArticleHitCount(int id) {
 		return articleRepository.getArticleHitCount(id);
 	}
+	
+	public int getGoodRP(int relId) {
+		return articleRepository.getGoodRP(relId);
+	}
+
+	public int getBadRP(int relId) {
+		return articleRepository.getBadRP(relId);
+	}
 
 }

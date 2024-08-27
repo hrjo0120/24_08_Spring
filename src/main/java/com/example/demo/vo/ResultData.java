@@ -34,6 +34,19 @@ public class ResultData<DT> {
 
 		return rd;
 	}
+	
+	public static <DT> ResultData<DT> from(String resultCode, String msg, String data1Name, DT data1, String data2Name,
+			DT data2) {
+		ResultData<DT> rd = new ResultData<DT>();
+		rd.ResultCode = resultCode;
+		rd.msg = msg;
+		rd.data1Name = data1Name;
+		rd.data1 = data1;
+		rd.data2Name = data2Name;
+		rd.data2 = data2;
+
+		return rd;
+	}
 
 	// 보이는 이유? getter를 만들 때 is+대문자가 규칙이기 때문에 자동으로 필드에 있는 변수가 됨
 	public boolean isSuccess() {

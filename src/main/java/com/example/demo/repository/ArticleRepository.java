@@ -179,4 +179,18 @@ public interface ArticleRepository {
 			WHERE id = #{id}
 			""")
 	public int increaseHitCount(int id);
+	
+	@Select("""
+			SELECT goodReactionPoint
+			FROM article
+			WHERE id = #{relId}
+			""")
+	public int getGoodRP(int relId);
+
+	@Select("""
+			SELECT badReactionPoint
+			FROM article
+			WHERE id = #{relId}
+			""")
+	public int getBadRP(int relId);
 }
