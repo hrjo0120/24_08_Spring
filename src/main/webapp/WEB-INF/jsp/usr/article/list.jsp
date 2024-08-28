@@ -6,6 +6,8 @@
 
 <section class="mt-24 text-xl px-4">
 	<div class="mx-auto">
+	
+	${articles }
 
 		<div class="mb-4 flex">
 			<div>${articlesCount }개</div>
@@ -52,7 +54,13 @@
 					<tr class="hover">
 						<td style="text-align: center;">${article.id}</td>
 						<td style="text-align: center;">${article.regDate.substring(0,10)}</td>
-						<td style="text-align: center;"><a href="detail?id=${article.id}">${article.title}</a></td>
+						<td style="text-align: center;">
+							<a class="hover:underline" href="detail?id=${article.id}">${article.title} <c:if
+									test="${article.extra__repliesCount > 0 }">
+									<span style="color: red;">[${article.extra__repliesCount }]</span>
+								</c:if>
+							</a>
+						</td>
 						<td style="text-align: center;">${article.extra__writer}</td>
 						<td style="text-align: center;">${article.goodReactionPoint}</td>
 						<td style="text-align: center;">${article.badReactionPoint}</td>
