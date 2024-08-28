@@ -7,7 +7,7 @@
 <section class="mt-24 text-xl px-4">
 	<div class="mx-auto">
 	
-	${articles }
+	<%-- ${articles } --%>
 
 		<div class="mb-4 flex">
 			<div>${articlesCount }개</div>
