@@ -105,11 +105,22 @@ public class UserMemberController {
 	@RequestMapping("/usr/member/doLogout")
 	@ResponseBody
 	public String doLogout(HttpServletRequest req) {
-
+ 
 		Rq rq = (Rq) req.getAttribute("rq");
 
 		rq.logout();
 
 		return Ut.jsReplace("S-1", Ut.f("로그아웃 성공"), "/");
 	}
+	
+	@RequestMapping("/usr/member/myPage")
+	public String showmyPage() {
+		return "usr/member/myPage";
+	}
+
+	@RequestMapping("/usr/member/checkPw")
+	public String showCheckPw() {
+		return "usr/member/checkPw";
+	}
+	
 }
