@@ -94,7 +94,7 @@ public class UserMemberController {
 		}
 
 		rq.login(member);
-		
+
 		if (afterLoginUri.length() > 0) {
 			return Ut.jsReplace("S-1", Ut.f("%s님 환영합니다", member.getNickname()), afterLoginUri);
 		}
@@ -106,14 +106,14 @@ public class UserMemberController {
 	@RequestMapping("/usr/member/doLogout")
 	@ResponseBody
 	public String doLogout(HttpServletRequest req) {
- 
+
 		Rq rq = (Rq) req.getAttribute("rq");
 
 		rq.logout();
 
 		return Ut.jsReplace("S-1", Ut.f("로그아웃 성공"), "/");
 	}
-	
+
 	@RequestMapping("/usr/member/myPage")
 	public String showmyPage() {
 		return "usr/member/myPage";
@@ -123,7 +123,7 @@ public class UserMemberController {
 	public String showCheckPw() {
 		return "usr/member/checkPw";
 	}
-	
+
 	@RequestMapping("/usr/member/doCheckPw")
 	@ResponseBody
 	public String doCheckPw(String loginPw) {
@@ -142,7 +142,7 @@ public class UserMemberController {
 	public String showmyModify() {
 		return "usr/member/modify";
 	}
-	
+
 	@RequestMapping("/usr/member/doModify")
 	@ResponseBody
 	public String doModify(HttpServletRequest req, String loginPw, String name, String nickname, String cellphoneNum,
@@ -175,5 +175,22 @@ public class UserMemberController {
 
 		return Ut.jsReplace(modifyRd.getResultCode(), modifyRd.getMsg(), "../member/myPage");
 	}
-	
+
+	@RequestMapping("/usr/member/getLoginIdDup")
+	@ResponseBody
+	public ResultData getLoginIdDup(String loginId) {
+
+		if (Ut.isEmpty(loginId)) {
+			return ResultData.from("F-1", "아이디를 입력해주세요");
+		}
+
+		Member existsMember = memberService.getMemberByLoginId(loginId);
+
+		if (existsMember != null) {
+			return ResultData.from("F-2", "해당 아이디는 이미 사용중이야", "loginId", loginId);
+		}
+
+		return ResultData.from("S-1", "사용 가능!", "loginId", loginId);
+	}
+
 }
