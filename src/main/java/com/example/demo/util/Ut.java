@@ -77,4 +77,13 @@ public class Ut {
 	public static String f(String format, Object... args) {
 		return String.format(format, args);
 	}
+	
+	public static String getEncodedCurrentUri(String currentUri) {
+		try {
+			return URLEncoder.encode(currentUri, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			return currentUri;
+		}
+	}
 }
