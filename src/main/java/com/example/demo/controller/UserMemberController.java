@@ -144,12 +144,6 @@ public class UserMemberController {
 	}
 	
 	@RequestMapping("/usr/member/doModify")
-	public String doModify(String loginPw) {
-//		return "usr/member/modify";
-		return Ut.jsReplace("S-1", Ut.f("수정 완료"), "myPage");
-	}
-	
-	@RequestMapping("/usr/member/doModify")
 	@ResponseBody
 	public String doModify(HttpServletRequest req, String loginPw, String name, String nickname, String cellphoneNum,
 			String email) {
