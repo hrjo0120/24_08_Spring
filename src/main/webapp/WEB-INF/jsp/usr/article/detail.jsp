@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="pageTitle" value="DETAIL"></c:set>
 <%@ include file="../common/head.jspf"%>
+<%@ include file="../common/toastUiEditorLib.jspf"%>
 <hr />
 
 <!-- <iframe src="http://localhost:8080/usr/article/doIncreaseHitCount?id=757" frameborder="0"></iframe> -->
@@ -259,12 +260,10 @@ function doModifyReply(replyId) {
 					<td style="text-align: center;">
 
 						<button id="likeButton" class="btn btn-outline btn-success" onclick="doGoodReaction(${param.id})">
-							👍 LIKE 
-							<span class="likeCount">${article.goodReactionPoint}</span>
+							👍 LIKE <span class="likeCount">${article.goodReactionPoint}</span>
 						</button>
 						<button id="DislikeButton" class="btn btn-outline btn-error" onclick="doBadReaction(${param.id})">
-							👎 DISLIKE 
-							<span class="DislikeCount">${article.badReactionPoint}</span>
+							👎 DISLIKE <span class="DislikeCount">${article.badReactionPoint}</span>
 						</button> <%-- <a href="/usr/reactionPoint/doGoodReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.currentUri}"
 							class="btn btn-outline btn-success">👍 LIKE ${article.goodReactionPoint}</a>
 						<a href="/usr/reactionPoint/doBadReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.currentUri}"
@@ -282,7 +281,11 @@ function doModifyReply(replyId) {
 				</tr>
 				<tr>
 					<th style="text-align: center;">Body</th>
-					<td style="text-align: center;">${article.body}</td>
+					<td>
+						<div class="toast-ui-viewer">
+							<script type="text/x-template">${article.body}</script>
+						</div>
+					</td>
 				</tr>
 
 			</tbody>
@@ -327,10 +330,8 @@ function doModifyReply(replyId) {
 
 					<tr>
 						<th>댓글 내용 입력</th>
-						<td style="text-align: center;">
-							<textarea class="input input-bordered input-sm w-full max-w-xs" name="body" autocomplete="off" type="text"
-								placeholder="내용을 입력해"></textarea>
-						</td>
+						<td style="text-align: center;"><textarea class="input input-bordered input-sm w-full max-w-xs" name="body"
+								autocomplete="off" type="text" placeholder="내용을 입력해"></textarea></td>
 
 					</tr>
 					<tr>
@@ -367,29 +368,23 @@ function doModifyReply(replyId) {
 					<tr class="hover">
 						<td style="text-align: center;">${reply.regDate.substring(0,10)}</td>
 						<td style="text-align: center;">${reply.extra__writer}</td>
-						<td style="text-align: center;">
-							<span id="reply-${reply.id }">${reply.body}</span>
+						<td style="text-align: center;"><span id="reply-${reply.id }">${reply.body}</span>
 							<form method="POST" id="modify-form-${reply.id }" style="display: none;" action="/usr/reply/doModify">
 								<input type="text" value="${reply.body }" name="reply-text-${reply.id }" />
-							</form>
-						</td>
+							</form></td>
 						<td style="text-align: center;">${reply.goodReactionPoint}</td>
 						<td style="text-align: center;">${reply.badReactionPoint}</td>
-						<td style="text-align: center;">
-							<c:if test="${reply.userCanModify }">
+						<td style="text-align: center;"><c:if test="${reply.userCanModify }">
 								<%-- <a class="btn btn-outline btn-xs btn-success" href="../reply/modify?id=${reply.id }">수정</a> --%>
 								<button onclick="toggleModifybtn('${reply.id}');" id="modify-btn-${reply.id }" style="white-space: nowrap;"
 									class="btn btn-outline btn-xs btn-success">수정</button>
 								<button onclick="doModifyReply('${reply.id}');" style="white-space: nowrap; display: none;"
 									id="save-btn-${reply.id }" class="btn btn-outline btn-xs">저장</button>
-							</c:if>
-						</td>
-						<td style="text-align: center;">
-							<c:if test="${reply.userCanDelete }">
+							</c:if></td>
+						<td style="text-align: center;"><c:if test="${reply.userCanDelete }">
 								<a class="btn btn-outline btn-xs btn-error" onclick="if(confirm('정말 삭제?') == false) return false;"
 									href="../reply/doDelete?id=${reply.id }">삭제</a>
-							</c:if>
-						</td>
+							</c:if></td>
 					</tr>
 				</c:forEach>
 
