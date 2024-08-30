@@ -70,7 +70,7 @@
 			isAjax : 'Y',
 			loginId : form.loginId.value
 		}, function(data) {
-			$('.checkDup-msg').html('<div class="mt-2">' + data.msg + '</div>')
+			$('.checkDup-msg').html('<div class="">' + data.msg + '</div>')
 			if (data.success) {
 				validLoginId = data.data1;
 			} else {
@@ -78,64 +78,52 @@
 			}
 		}, 'json');
 	}
-	// checkLoginIdDup();
+	// 	checkLoginIdDup(); // 매번 실행
 	const checkLoginIdDupDebounced = _.debounce(checkLoginIdDup, 600); // 실행 빈도 조절
 </script>
-<section class="mt-24 text-xl px-4">
+<!-- <section class="mt-24 text-xl px-4"> -->
+<section class="mt-24 text-xl px-4" style="display: flex; justify-content: center; align-items: center;">
 	<div class="mx-auto">
 		<form action="../member/doJoin" method="POST" onsubmit="JoinForm__submit(this); return false;">
 			<table class="table" border="1" cellspacing="0" cellpadding="5" style="width: 100%; border-collapse: collapse;">
 				<tbody>
 					<tr>
 						<th>아이디</th>
-						<td style="text-align: center;">
-							<input onkeyup="checkLoginIdDupDebounced(this);"
-								class="input input-bordered input-primary input-sm w-full max-w-xs" name="loginId" autocomplete="off"
-								type="text" placeholder="아이디를 입력해" />
-						</td>
-
+						<td style="text-align: center;"><input onkeyup="checkLoginIdDupDebounced(this);"
+							class="input input-bordered input-primary input-sm w-full max-w-xs" name="loginId" autocomplete="off" type="text"
+							placeholder="아이디를 입력해" /></td>
 					</tr>
 					<tr>
 						<th></th>
-						<td style="text-align: center;">
+						<td style="text-align: ;">
 							<div class="checkDup-msg"></div>
 						</td>
 					</tr>
-					
+
 					<tr>
 						<th>비밀번호</th>
-						<td style="text-align: center;">
-							<input class="input input-bordered input-primary input-sm w-full max-w-xs" name="loginPw" autocomplete="off"
-								type="text" placeholder="비밀번호를 입력해" />
-						</td>
+						<td style="text-align: center;"><input class="input input-bordered input-primary input-sm w-full max-w-xs"
+							name="loginPw" autocomplete="off" type="text" placeholder="비밀번호를 입력해" /></td>
 					</tr>
 					<tr>
 						<th>이름</th>
-						<td style="text-align: center;">
-							<input class="input input-bordered input-primary input-sm w-full max-w-xs" name="name" autocomplete="off"
-								type="text" placeholder="이름 입력해" />
-						</td>
+						<td style="text-align: center;"><input class="input input-bordered input-primary input-sm w-full max-w-xs"
+							name="name" autocomplete="off" type="text" placeholder="이름 입력해" /></td>
 					</tr>
 					<tr>
 						<th>닉네임</th>
-						<td style="text-align: center;">
-							<input class="input input-bordered input-primary input-sm w-full max-w-xs" name="nickname" autocomplete="off"
-								type="text" placeholder="닉네임 입력해" />
-						</td>
+						<td style="text-align: center;"><input class="input input-bordered input-primary input-sm w-full max-w-xs"
+							name="nickname" autocomplete="off" type="text" placeholder="닉네임 입력해" /></td>
 					</tr>
 					<tr>
 						<th>전화번호</th>
-						<td style="text-align: center;">
-							<input class="input input-bordered input-primary input-sm w-full max-w-xs" name="cellphoneNum" autocomplete="off"
-								type="text" placeholder="전화번호를 입력해" />
-						</td>
+						<td style="text-align: center;"><input class="input input-bordered input-primary input-sm w-full max-w-xs"
+							name="cellphoneNum" autocomplete="off" type="text" placeholder="전화번호를 입력해" /></td>
 					</tr>
 					<tr>
 						<th>이메일</th>
-						<td style="text-align: center;">
-							<input class="input input-bordered input-primary input-sm w-full max-w-xs" name="email" autocomplete="off"
-								type="text" placeholder="이메일을 입력해" />
-						</td>
+						<td style="text-align: center;"><input class="input input-bordered input-primary input-sm w-full max-w-xs"
+							name="email" autocomplete="off" type="text" placeholder="이메일을 입력해" /></td>
 					</tr>
 					<tr>
 						<th></th>

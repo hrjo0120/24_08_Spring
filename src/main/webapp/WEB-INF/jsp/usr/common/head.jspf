@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
-<html>
+<html data-theme="light">
 <head>
 <meta charset="UTF-8">
 <title>${pageTitle }</title>
@@ -16,11 +16,43 @@
 <!-- 폰트어썸 FREE 아이콘 리스트 : https://fontawesome.com/v5.15/icons?d=gallery&p=2&m=free -->
 
 <!-- 테일윈드 -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.1.4/tailwind.min.css">
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.1.4/tailwind.min.css"> -->
 <!-- 테일윈드 치트시트 : https://nerdcave.com/tailwind-cheat-sheet -->
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css" rel="stylesheet" type="text/css" />
 
 <!-- daisyUI -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.12.10/full.css" />
+
+<script>
+  // 테마를 전환하는 함수
+  function Theme__toggle() {
+    const theme = localStorage.getItem('theme') ?? 'light';
+
+    if (theme == 'light') {
+      localStorage.setItem('theme', 'dark');
+      Theme__applyTo('dark'); // 테마를 어두운 테마로 설정
+    } else {
+      localStorage.setItem('theme', 'light');
+      Theme__applyTo('light'); // 테마를 밝은 테마로 설정
+    }
+  }
+
+  // 특정 테마를 적용하는 함수
+  function Theme__applyTo(themeName) {
+    $('html').attr('data-theme', themeName);
+  }
+
+  // 초기 테마 설정 함수
+  function Theme__init() {
+    const theme = localStorage.getItem('theme') ?? 'light';
+    Theme__applyTo(theme);
+  }
+
+  // 문서 로드 완료 시 초기 테마 설정
+  $(document).ready(function () {
+    Theme__init();
+  });
+</script>
 
 </head>
 <body>
@@ -29,6 +61,9 @@
 			<a href="/">LOGO</a>
 			<div class="flex-grow"></div>
 			<ul class="flex">
+				<li class=""><a class="h-full px-3 flex items-center btn-theme-toggle" href="javascript:Theme__toggle();">
+						<span>🌞</span> <span>🌚</span>
+				</a></li>
 				<li><a class="hover:underline" href="/">HOME</a></li>
 				<li>
 					<div class="dropdown dropdown-hover">
