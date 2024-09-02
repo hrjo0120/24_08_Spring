@@ -66,6 +66,11 @@ public class ArticleService {
 	public List<Article> getArticles() {
 		return articleRepository.getArticles();
 	}
+	
+	public int getCurrentArticleId() {
+		return articleRepository.getCurrentArticleId();
+
+	}
 
 	private void controlForPrintData(int loginedMemberId, Article article) {
 		if (article == null) {
