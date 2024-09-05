@@ -33,6 +33,7 @@ public class Ut {
 
 		return Ut.f("""
 					<script>
+						let msg = '%s';
 						if(msg.length > 0){
 							alert(msg);
 						}

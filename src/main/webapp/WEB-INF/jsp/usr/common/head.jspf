@@ -62,8 +62,7 @@
 			<div class="flex-grow"></div>
 			<ul class="flex">
 				<li class=""><a class="h-full px-3 flex items-center btn-theme-toggle" href="javascript:Theme__toggle();">
-						<span>🌞</span>
-						<span>🌚</span>
+						<span>🌞</span> <span>🌚</span>
 				</a></li>
 				<li><a class="hover:underline" href="/">HOME</a></li>
 				<li>
@@ -89,11 +88,8 @@
 						href="../member/doLogout">LOGOUT</a></li>
 				</c:if>
 				<c:if test="${rq.admin}">
-					<li class="hover:underline">
-						<a class="h-full px-3 flex items-center" href="/adm/member/list">
-							<span>M.LIST</span>
-						</a>
-					</li>
+					<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/adm/member/list"> <span>M.LIST</span>
+					</a></li>
 				</c:if>
 			</ul>
 		</div>
