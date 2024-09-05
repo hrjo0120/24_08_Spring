@@ -79,7 +79,7 @@ loginPw = 'test1',
 `name` = '회원1_이름',
 nickname = '회원1_닉네임',
 cellphoneNum = '01043214321',
-email = 'abcd@gmail.com';
+email = 'hrjo0120@gmail.com';
 
 ## (일반)
 INSERT INTO `member`
@@ -354,6 +354,10 @@ CREATE TABLE genFile (
   PRIMARY KEY (id),
   KEY relId (relTypeCode,relId,typeCode,type2Code,fileNo)
 );
+
+# 기존의 회원 비번을 암호화
+UPDATE `member`
+SET loginPw = SHA2(loginPw,256);
 
 ###(INIT 끝)
 ##########################################
